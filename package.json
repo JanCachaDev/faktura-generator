@@ -37,7 +37,7 @@
   },
   "trustedDependencies": ["puppeteer"],
   "dependencies": {
-    "puppeteer": "^22.0.0",
+    "puppeteer": "^25.18.1",
     "qrcode": "^1.5.4"
   },
   "devDependencies": {
