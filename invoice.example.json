@@ -1,16 +1,19 @@
 {
   "issueDate": "2025-06-30",
-  "pricePerUnit": 210,
-  "client": {
-    "name": "Client s.r.o.",
-    "ico": "87654321",
-    "dic": "",
-    "street": "Street 5",
-    "city": "City",
-    "zip": "110 00",
-    "country": "Czech Republic"
-  },
+  "pricePerUnit": 650,
   "dueDays": 14,
-  "note": "Thank you for your business.",
-  "items": []
+  "client": {
+    "name": "Ukázka Software s.r.o.",
+    "ico": "87654321",
+    "dic": "CZ87654321",
+    "street": "Testovací 5",
+    "city": "Brno",
+    "zip": "602 00",
+    "country": "Česká republika"
+  },
+  "note": "Děkujeme za spolupráci.",
+  "items": [
+    { "description": "Vývoj webové aplikace – červen 2025", "quantity": 32.5, "unit": "hod" },
+    { "description": "Code review a konzultace", "quantity": 6, "unit": "hod" }
+  ]
 }

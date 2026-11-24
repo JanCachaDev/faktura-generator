@@ -1,6 +1,16 @@
 node_modules/
 *.pdf
-bun.lock
+!docs/*.pdf
+
+# Personal data — never commit
 supplier.json
 invoice.json
-.idea
+timesheet.csv
+*.csv
+!timesheet.example.csv
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

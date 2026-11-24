@@ -1,16 +1,48 @@
 {
-  "name": "faktura",
+  "name": "@jancachadev/faktura-generator",
   "version": "1.0.0",
+  "description": "CLI that turns a JSON config or a Jira timesheet CSV into a Czech PDF invoice with a QR payment code.",
   "type": "module",
-  "scripts": {
-    "invoice": "bun run invoice.ts",
-    "timesheet": "bun run parse-timesheet.ts"
+  "license": "MIT",
+  "author": "Jan Čácha (https://github.com/JanCachaDev)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JanCachaDev/faktura-generator.git"
   },
+  "homepage": "https://github.com/JanCachaDev/faktura-generator#readme",
+  "bugs": "https://github.com/JanCachaDev/faktura-generator/issues",
+  "keywords": ["invoice", "faktura", "pdf", "qr-platba", "spayd", "jira", "timesheet", "freelancer", "bun", "cli"],
+  "bin": {
+    "faktura": "src/cli.ts"
+  },
+  "files": [
+    "src",
+    "supplier.example.json",
+    "invoice.example.json",
+    "timesheet.example.csv"
+  ],
+  "engines": {
+    "bun": ">=1.1"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
+  },
+  "scripts": {
+    "invoice": "bun src/cli.ts",
+    "timesheet": "bun src/cli.ts timesheet",
+    "test": "bun test",
+    "typecheck": "tsc --noEmit",
+    "preview": "bun scripts/preview.ts"
+  },
+  "trustedDependencies": ["puppeteer"],
   "dependencies": {
     "puppeteer": "^22.0.0",
     "qrcode": "^1.5.4"
   },
   "devDependencies": {
-    "@types/qrcode": "^1.5.5"
+    "@types/qrcode": "^1.5.5",
+    "bun-types": "^1.4.5",
+    "typescript": "^7.0.2"
   }
 }
