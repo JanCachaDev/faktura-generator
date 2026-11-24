@@ -33,16 +33,28 @@ jobs:
           [ -s release-notes.md ] || { echo "No CHANGELOG entry for $GITHUB_REF_NAME"; exit 1; }
           cat release-notes.md
 
-      - name: Create GitHub release
+      - name: Create or update GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "$GITHUB_REF_NAME" --title "$GITHUB_REF_NAME" --notes-file release-notes.md
+        run: |
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            gh release edit "$GITHUB_REF_NAME" --notes-file release-notes.md
+          else
+            gh release create "$GITHUB_REF_NAME" --title "$GITHUB_REF_NAME" --notes-file release-notes.md
+          fi
 
       - name: Publish to GitHub Packages
         uses: actions/setup-node@v5
         with:
           node-version: 22
           registry-url: https://npm.pkg.github.com
-      - run: npm publish
+      - name: npm publish (skipped if this version already exists)
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          spec="$(node -p 'const p=require("./package.json"); p.name+"@"+p.version')"
+          if npm view "$spec" version >/dev/null 2>&1; then
+            echo "$spec is already published, skipping"
+          else
+            npm publish
+          fi
