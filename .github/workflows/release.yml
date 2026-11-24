@@ -25,11 +25,12 @@ jobs:
 
       - name: Extract release notes from CHANGELOG.md
         run: |
-          awk -v v="${GITHUB_REF_NAME#v}" '
-            $0 ~ "^## \[" v "\]" { on=1; next }
-            on && /^## \[/ { exit }
+          awk -v h="## [${GITHUB_REF_NAME#v}]" '
+            index($0, h) == 1 { on=1; next }
+            on && index($0, "## [") == 1 { exit }
             on { print }
           ' CHANGELOG.md > release-notes.md
+          [ -s release-notes.md ] || { echo "No CHANGELOG entry for $GITHUB_REF_NAME"; exit 1; }
           cat release-notes.md
 
       - name: Create GitHub release
